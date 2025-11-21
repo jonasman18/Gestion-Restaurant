@@ -4,15 +4,20 @@ from .views import (
     TableViewSet,
     MenuViewSet,
     CommandeViewSet,
-    ReservViewSet
+    ReservViewSet,
+    clients_history
 )
 
 router = DefaultRouter()
-router.register('tables', TableViewSet)
+router.register('tables', TableViewSet, basename='tables')
 router.register('menus', MenuViewSet)
 router.register('commandes', CommandeViewSet)
 router.register('reservations', ReservViewSet)
 
+
 urlpatterns = [
     path('', include(router.urls)),
+
+    # 🔍 Historique des clients
+    path('clients/', clients_history),
 ]

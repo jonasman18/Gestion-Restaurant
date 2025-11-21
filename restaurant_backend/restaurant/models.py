@@ -5,9 +5,9 @@ from django.db import models
 # 🟦 TABLE
 # ============================
 class Table(models.Model):
-    idtable = models.CharField(max_length=10, primary_key=True)
+    idtable = models.AutoField(primary_key=True)
     designation = models.CharField(max_length=50)
-    occupation = models.BooleanField(default=False)   # True = occupée, False = libre
+    occupation = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.idtable} - {self.designation}"
@@ -17,9 +17,9 @@ class Table(models.Model):
 # 🟦 MENU
 # ============================
 class Menu(models.Model):
-    idplat = models.CharField(max_length=10, primary_key=True)
+    idplat = models.AutoField(primary_key=True)
     nomplat = models.CharField(max_length=100)
-    pu = models.IntegerField()  # prix unitaire
+    pu = models.IntegerField()
 
     def __str__(self):
         return f"{self.nomplat} ({self.pu} Ar)"
@@ -34,7 +34,7 @@ class Commande(models.Model):
         ('EMPORTER', 'À emporter'),
     ]
 
-    idcom = models.CharField(max_length=10, primary_key=True)
+    idcom = models.AutoField(primary_key=True)
     idplat = models.ForeignKey(Menu, on_delete=models.CASCADE)
     nomcli = models.CharField(max_length=100)
     typecom = models.CharField(max_length=10, choices=TYPE_CHOICES)
@@ -50,10 +50,10 @@ class Commande(models.Model):
 # 🟦 RESERVATION
 # ============================
 class Reserver(models.Model):
-    idreserv = models.CharField(max_length=10, primary_key=True)
+    idreserv = models.AutoField(primary_key=True)
     idtable = models.ForeignKey(Table, on_delete=models.CASCADE)
-    date_de_reserv = models.DateTimeField(auto_now_add=True)  # moment où on réserve
-    date_reserve = models.DateTimeField()                     # date souhaitée
+    date_de_reserv = models.DateTimeField(auto_now_add=True)
+    date_reserve = models.DateTimeField()
     nomcli = models.CharField(max_length=100)
 
     def __str__(self):
